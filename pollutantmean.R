@@ -5,8 +5,11 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
   ## the location of the CSV files
   c(directory,pollutant,id) 
   ##paste(directory,sep)
-  dirlist<-list.files(path="specdata",pattern=".csv")
-  dirlist[1]  
+  dirlist<-list.files(path="specdata",pattern=".csv",full.names=TRUE)
+  dirlist[1:2]  
+  ##datatest <- lapply(dirlist, read.csv)
+  ##datatest
+  ##data <- "test"
   
   
   
