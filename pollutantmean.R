@@ -2,15 +2,13 @@
 pollutantmean <- function(directory, pollutant, id = 1:332) {
   ##setwd("/Users/totomai/Documents/R Programming - Coursera/testfunctions")
 
-
   dirlist<-list.files(path="specdata",pattern=".csv",full.names=TRUE)  ##scans the path and creates a list of the filenames into dirlist
   
   ##testing ongoing
-  print (dirlist[1:2])  ## --for test, limiting the sample list
-  a<-dirlist[1:2]
-  lapply(a,read.csv)
-  ##read.csv(a)  ## --for test, limiting the sample
-  ##datatest <- lapply(dirlist, read.csv)
+  print (c("Monitoring these files:",dirlist[id]))  ## --test--print out monitor files read
+  lapply(dirlist[id],read.csv)  #stores the file data into memory
+
+  ##a<- pollutantmean("specdata","sulfate",1:3)
 
   
   
