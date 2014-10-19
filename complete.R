@@ -20,8 +20,9 @@ complete <- function(directory, id = 1:332) {
   
   newdata<-NA ## initial value, will be ignored anyway by the mean function
   for (i in 1:length(id)) { 
+    #print (i, str(mem[[i]]))
     newdata<-rbind(newdata,mem[[i]])  ## compiles all monitor data into just 1
   }
-  return(newdata)
+  return(na.omit(newdata))
   
 }
