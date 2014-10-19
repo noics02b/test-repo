@@ -13,12 +13,14 @@ corr <- function(directory, threshold = 0) {
   ## coding starts here!
   ##setwd("/Users/totomai/Documents/R Programming - Coursera/testfunctions/test-repo")
   dirlist<-list.files(path="specdata",pattern=".csv",full.names=TRUE)  ##scans the path and creates a list of the filenames into dirlist
-  mem<-lapply(dirlist[id],read.csv)  ##stores the file data into memory as data.frames
+  mem<-lapply(dirlist,read.csv)  ##stores the file data into memory as data.frames -- all 332 IDs!!
+  #noNA<-na.omit(mem)  ## discards all NA data
   
   newdata<-NA ## initial value, will be ignored anyway by the mean function
-  for (i in 1:length(id)) { 
+  for (i in 1:10) { 
     #print (i, str(mem[[i]]))
     newdata<-rbind(newdata,mem[[i]])  ## compiles all monitor data into just 1
   }
-  noNA<-na.omit(newdata)  ## discards all NA data
+  return(na.omit(newdata))
+  
 }
