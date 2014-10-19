@@ -9,6 +9,7 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
   ##testing ongoing
   ##print (c("Monitoring these files:",dirlist[id]))  ## --test--print out monitor files read
   mem<-lapply(dirlist[id],read.csv)  #stores the file data into memory as data.frames
+  
   ## need to combine mem[id] to 1 matrix
   ##print(str(mem[id]))
   ##str(mem[id][[2]])
@@ -22,10 +23,14 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
   ##a<-rbind(mem[[1]],mem[[2]])
   
   newdata<-NA
-  for (i in length(id)) {##print (pollutant)
-               newdata<-rbind(newdata,mem[[i]])                }
-  ##return (newdata)
-  print(mean(newdata[[pick]],na.rm=TRUE))
+  for (i in 1:length(id)) { ##print (a<-paste("mem[",i,"]",collapse=""))}
+              newdata<-rbind(newdata,mem[[i]]) }
+  write.csv(newdata, "data.csv", row.names=FALSE)
+  return (mean(newdata[[pick]],na.rm=TRUE))
+              
+  
+  
+  ##print(mean(newdata[[pick]],na.rm=TRUE))
   
   
   ##a<- pollutantmean("specdata","sulfate",1:3)
