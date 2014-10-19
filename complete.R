@@ -23,8 +23,9 @@ complete <- function(directory, id = 1:332) {
     #print (i, str(mem[[i]]))
     newdata<-rbind(newdata,mem[[i]])  ## compiles all monitor data into just 1
   }
-  noNA<-na.omit(newdata)
-  output<-tapply(noNA[[1]],noNA[[4]],length)  ## counts the no. of obs excluding NA
+  noNA<-na.omit(newdata)  ## discards all NA data
+  countvalid<-tapply(noNA[[1]],noNA[[4]],length)  ## counts the no. of obs excluding NA
+  output<-data.frame("id"=id,nobs=countvalid)
   return(output)
   
 }
