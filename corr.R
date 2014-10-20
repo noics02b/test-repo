@@ -18,7 +18,7 @@ corr <- function(directory, threshold = 0) {
   
   
   newdata<-NA ## initial value, will be ignored anyway by the mean function
-  for (i in 1:3) { 
+  for (i in 1:length(dirlist)) { 
     #print (i, str(mem[[i]]))
     newdata<-rbind(newdata,mem[[i]])  ## compiles all monitor data into just 1
   }
@@ -36,7 +36,7 @@ corr <- function(directory, threshold = 0) {
   ##corrdata<-noNA[goodnoNA[4]]
   ##print(corrdata)
   corrdata<-tapply(rownames(noNA), noNA$ID, function(s) cor(noNA[s,"nitrate"], noNA[s,"sulfate"]))
-  return(corrdata)
+  return(corrdata[filter])
   
 
   #corr("specdata",150)
