@@ -14,13 +14,32 @@ corr <- function(directory, threshold = 0) {
   ##setwd("/Users/totomai/Documents/R Programming - Coursera/testfunctions/test-repo")
   dirlist<-list.files(path="specdata",pattern=".csv",full.names=TRUE)  ##scans the path and creates a list of the filenames into dirlist
   mem<-lapply(dirlist,read.csv)  ##stores the file data into memory as data.frames -- all 332 IDs!!
-  #noNA<-na.omit(mem)  ## discards all NA data
+  ##noNA<-lapply(mem,na.omit)  ## discards all NA data!
+  
   
   newdata<-NA ## initial value, will be ignored anyway by the mean function
-  for (i in 1:10) { 
+  for (i in 1:3) { 
     #print (i, str(mem[[i]]))
     newdata<-rbind(newdata,mem[[i]])  ## compiles all monitor data into just 1
   }
-  return(na.omit(newdata))
+  noNA<-na.omit(newdata)  ## discards all NA data
+  #b<-split(noNA,noNA[[4]])
+  countnoNA<-tapply(noNA[[1]],noNA[[4]],length)  ## counts the no. of obs excluding NA
+  #print(countnoNA)
+  goodnoNA<-countnoNA[countnoNA>threshold]  ## outputs ONLY the entry numbers that satisfies the threshold condition
+  #print(paste(c("Greather than threshold:",threshold,"="),collapse=""))
+  filter<- names(goodnoNA)
+  print(filter)
+  write.table(goodnoNA, "datacorr.csv",sep=",")
+  #write.table(noNA, "datacorr.csv",sep=",", append=TRUE)
+  #corrdata<-cor
+  ##corrdata<-noNA[goodnoNA[4]]
+  ##print(corrdata)
+  corrdata<-tapply(rownames(noNA), noNA$ID, function(s) cor(noNA[s,"nitrate"], noNA[s,"sulfate"]))
+  return(corrdata)
+  
+
+  #corr("specdata",150)
+  
   
 }
