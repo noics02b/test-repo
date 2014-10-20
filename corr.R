@@ -23,23 +23,14 @@ corr <- function(directory, threshold = 0) {
     newdata<-rbind(newdata,mem[[i]])  ## compiles all monitor data into just 1
   }
   noNA<-na.omit(newdata)  ## discards all NA data
-  #b<-split(noNA,noNA[[4]])
   countnoNA<-tapply(noNA[[1]],noNA[[4]],length)  ## counts the no. of obs excluding NA
-  #print(countnoNA)
   goodnoNA<-countnoNA[countnoNA>threshold]  ## outputs ONLY the entry numbers that satisfies the threshold condition
-  #print(paste(c("Greather than threshold:",threshold,"="),collapse=""))
-  filter<- names(goodnoNA)
-  print(filter)
-  write.table(goodnoNA, "datacorr.csv",sep=",")
-  #write.table(noNA, "datacorr.csv",sep=",", append=TRUE)
-  #corrdata<-cor
-  ##corrdata<-noNA[goodnoNA[4]]
-  ##print(corrdata)
-  corrdata<-tapply(rownames(noNA), noNA$ID, function(s) cor(noNA[s,"nitrate"], noNA[s,"sulfate"]))
+  filter<- names(goodnoNA)  ## to be used as subset 
+  corrdata<-tapply(rownames(noNA), noNA$ID, function(s) cor(noNA[s,"nitrate"], noNA[s,"sulfate"]))  ## this is how you tapply on cor!!
   return(corrdata[filter])
   
 
-  #corr("specdata",150)
+  #sample input set  a<-corr("specdata",150)
   
   
 }
